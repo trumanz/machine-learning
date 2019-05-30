@@ -2,35 +2,42 @@
 import datetime
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
+import pandas as pd
+
 import matplotlib.pyplot as plt
 
 import sys
 
 def getSampleDate():
     point_num = 50*1000
-    dimension = 7
+    dimension = 20
     step = 1
     return np.arange(0,point_num*dimension*step,step).reshape(point_num,dimension)
 def getData():
-    point_num = 20*1000
-    dimension = 7
+    point_num = 2*1000
+    dimension = 20
     step = 2
     return np.arange(0, point_num * dimension * step, step).reshape(point_num, dimension)
 
 
-def testBrute(algorithm):
+def testBrute(algorithm, samples, points):
+    result = {}
     print('<<<Start Test ' + algorithm)
-    samples = getSampleDate()
-    points = getData()
-    pre_time = datetime.datetime.now();
+    #1. fit date
     pre_time = datetime.datetime.now();
     nbrs = NearestNeighbors(n_neighbors=2, algorithm=algorithm).fit(samples)
-    print("Fit sample data time" + str(datetime.datetime.now() - pre_time))
-    distances,indices = nbrs.kneighbors(points)
-    print("First find time" + str(datetime.datetime.now() - pre_time))
+    result["fitDur"] = datetime.datetime.now() - pre_time
+    print("Fit sample data time" + str(result["fitDur"]))
+    #2. find
     pre_time = datetime.datetime.now();
     distances,indices = nbrs.kneighbors(points)
-    print("Second find Time" + str(datetime.datetime.now() - pre_time))
+    result["firstFindDur"] = datetime.datetime.now() - pre_time
+    print("First find time" + str(result["firstFindDur"]))
+    #2. find again
+    pre_time = datetime.datetime.now();
+    distances,indices = nbrs.kneighbors(points)
+    result["secondFindDur"] = datetime.datetime.now() - pre_time
+    print("Second find Time" + str(result["secondFindDur"]))
     #print("distances:\n" + str(distances) + "\n===")
     #print("indices:\n" + str(indices) + "\n===")
 
@@ -43,11 +50,19 @@ def testBrute(algorithm):
         #print(info)
     #plt.scatter(samples[:,0],samples[:,1])
     #plt.show()
+    return result
 
 if __name__ == '__main__':
-    testBrute("brute")
-    testBrute('kd_tree')
-    testBrute("ball_tree")
+    samples = getSampleDate()
+    points = getData()
+    result = []
+    for algorithm in ["brute", 'kd_tree', "ball_tree"] :
+        r = testBrute(algorithm, samples, points)
+        r['algorithm'] = algorithm
+        result.append(r)
+    print(result)
+    df = pd.DataFrame(result)
+    print(df)
 
 
 
