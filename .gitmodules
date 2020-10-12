@@ -1,0 +1,3 @@
+[submodule "datasets-recsys"]
+	path = datasets-recsys
+	url = git@github.com:trumanz/datasets-recsys.git
