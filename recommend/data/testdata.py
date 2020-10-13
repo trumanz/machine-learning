@@ -1,3 +1,4 @@
+import os
 import csv
 import sys
 import math
@@ -25,6 +26,26 @@ def get_samll_test_data():
                 train_records.append((user, movie))
     test_records = [(4,3)]
     return  train_records, test_records
+def get_1m_data():
+    record_set = set()
+    x = []
+    path = os.path.dirname(os.path.realpath(__file__))
+    path = os.path.join(path, "../../datasets-recsys/ml-1m/ratings.dat")
+    path = os.path.realpath(path)
+    print(path)
+    records = []
+    with open(path, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            d =line.split(',')
+            r = (d[0], d[1])
+            records.append(r)
+    random.seed(1)
+    random.shuffle(records)
+    x = int(len(records)*0.8)
+    train_records = records[0:x]
+    test_records = records[x:]
+    return (train_records, test_records)
 
 def readUserMovieRecord():
     record_set = set()
