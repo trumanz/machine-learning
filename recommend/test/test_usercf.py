@@ -4,7 +4,7 @@ from usercf.usercf import UserCF
 from evaluator import  evaluate
 
 class TestUserCF(unittest.TestCase):
-    
+
     def test_samll_data(self):
         print("\n")
         (train_data, test_data) = testdata.get_samll_test_data()
@@ -19,6 +19,7 @@ class TestUserCF(unittest.TestCase):
     def test_1m_data(self):
         print("\n")
         (train_data, test_data) = testdata.get_1m_data()
+        test_user_view_data = testdata.tranform2UserView(test_data)
         user_cf = UserCF()
         user_cf.train_v2(train_data)
         users = set([k for k in test_user_view_data])

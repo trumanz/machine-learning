@@ -34,7 +34,7 @@ class UserCF:
       count_same_movie = defaultdict(defaultdict)  #C[i][j] represent same movie count of user i and j
       weight_of_similarity = defaultdict(defaultdict)
       user_movie_count = defaultdict()
-      for movie,users in tqdm( movie_user_dict.items() ):
+      for movie,users in tqdm( movie_user_dict.items(), smoothing=1.0):
         #print("movie:" + str(movie))
         #print(users)
         for i in users:
@@ -56,7 +56,7 @@ class UserCF:
       #print(count_same_movie)
       #print(user_movie_count)
 
-      for i, jcount in tqdm(count_same_movie.items() ):
+      for i, jcount in tqdm(count_same_movie.items() , smoothing=1.0):
         for j,count in jcount.items():
             if i >= j:
                 continue

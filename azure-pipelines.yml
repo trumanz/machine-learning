@@ -21,5 +21,6 @@ steps:
       pip install -U ortools
   displayName: Prepare dev environment
 - bash: |
-      cd  recommend && python run-test.py 
+      git submodule  update --init --recursive
+      pwd && ls -a && ls -a datasets-recsys  && cd  recommend && python run-test.py 
   displayName: Start test
