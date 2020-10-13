@@ -19,8 +19,7 @@ steps:
 - bash: |
       source activate algenv
       pip install -U ortools
-      python  prepare_dev_env.py
   displayName: Prepare dev environment
 - bash: |
-      python run-test.py
+      cd  recommend && python run-test.py 
   displayName: Start test

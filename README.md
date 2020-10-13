@@ -1,7 +1,7 @@
 # algorithm practice 
 
 
-[![azure-pipeline](https://dev.azure.com/trumanckzhou/trumanckzhou/_apis/build/status/trumanz.algorithms?branchName=master)](https://dev.azure.com/trumanckzhou/trumanckzhou/_build?definitionId=2)
+[![azure-pipeline](https://dev.azure.com/trumanckzhou/trumanckzhou/_apis/build/status/trumanz.machine-learning?branchName=master)](https://dev.azure.com/trumanckzhou/trumanckzhou/_build?definitionId=3)
 
 ##Work with Gurobi 752
 
